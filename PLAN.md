@@ -110,8 +110,9 @@ qr.html'den /menu adresini yazdır → masaya koy → bir daha değiştirme
 Taşınma gerekirse: yonlendirme.json'daki hedefi değiştir, QR aynı kalır
 ```
 
-**QR'ın gittiği adres:** `https://<siteniz>/menu` — bu adres hiç değişmez,
-hedefi `data/yonlendirme.json` belirler.
+**QR'ın gittiği adres:** ayrı bir Vercel projesi (`yonlendirme.vercel.app`).
+O proje bu siteye yönlendirir. Menü taşınırsa yönlendiricinin hedefi değişir,
+basılı QR aynı kalır.
 
 ---
 
@@ -130,7 +131,7 @@ hedefi `data/yonlendirme.json` belirler.
 - [x] QR PNG indirme (baskı için 720px)
 - [x] Masaüstünde iki kolonlu liste
 - [ ] Ürün arama (64 kalemde işe yarar)
-- [x] QR yönlendirme katmanı (yonlendirme.json)
+- [x] QR yönlendirme katmanı — ayrı repo/proje olarak ayrıldı
 - [ ] PWA (çevrimdışı önbellek)
 - [x] Hero görseli değiştirildi (Unsplash, yüksek çözünürlük, mobil/masaüstü iki boyut)
 - [ ] Salonun kendi fotoğrafı (mevcut hero hâlâ stok görsel)

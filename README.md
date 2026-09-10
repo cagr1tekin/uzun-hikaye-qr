@@ -65,57 +65,36 @@ güncellemek.
 
 ## QR Kod ve Yönlendirme
 
-### Neden araya bir yönlendirme koyuyoruz
-
-Basılı QR kod **değiştirilemez**. Masalara yapıştırıldıktan sonra adresi
-değiştirmek, tüm masaları tek tek dolaşıp yeniden yapıştırmak demektir.
-
-Bu yüzden QR doğrudan menüye değil, `/menu` adresine gider. O adres de
-`data/yonlendirme.json` dosyasındaki hedefe yönlendirir:
+QR kod **bu siteye doğrudan gitmez.** Ayrı bir Vercel projesi olan
+yönlendiriciye gider, o da buraya yönlendirir:
 
 ```
-QR kod  →  https://<siteniz>/menu  →  yonlendirme.json → hedef
-           (asla değişmez)             (istediğiniz zaman değişir)
+QR kod  →  yonlendirme.vercel.app  →  bu menü sitesi
+           (ayrı proje, asla değişmez)   (taşınabilir)
 ```
 
-Domain aldığınızda, menüyü başka bir yere taşıdığınızda ya da geçici olarak
-Instagram sayfanıza yönlendirmek istediğinizde tek yapılacak şu dosyayı
-güncellemek:
+Yönlendirici ayrı bir repodadır: **[uzun-hikaye-yonlendirme](https://github.com/cagr1tekin/uzun-hikaye-yonlendirme)**
 
-```json
-{
-  "hedef": "https://uzunhikaye.com/menu",
-  "aktif": true,
-  "kapaliMesaji": "Menü şu anda güncelleniyor. Kısa süre sonra tekrar deneyin.",
-  "gecikmeMs": 0
-}
-```
+Bu ayrım şart: yönlendirici bu projenin içinde olsaydı, menü sitesi
+`uzunhikaye.com`'a taşındığında yönlendirici de onunla birlikte taşınır ve
+basılı QR'lar ölürdü. Ayrı proje olduğu için menü nereye giderse gitsin
+QR'daki adres sabit kalır.
 
-| Alan | Ne yapar |
-|------|----------|
-| `hedef` | Yönlendirilecek adres. Göreli (`index.html`) veya tam adres olabilir. |
-| `aktif` | `false` yapılırsa yönlendirme durur, ziyaretçiye `kapaliMesaji` görünür. |
-| `gecikmeMs` | `0` = anında. Değer verilirse önce salon adı görünür, sonra yönlendirir. |
-
-Hedef yanlışlıkla `go.html`'in kendisine ayarlanırsa sonsuz döngüye girmez,
-doğrudan menüye düşer.
+**Menü adresi değiştiğinde** bu repoda hiçbir şey yapılmaz — yönlendirici
+reposundaki `vercel.json` güncellenir.
 
 ### QR kodu üretme
 
-1. Siteyi yayına alın
-2. `https://<siteniz>/qr.html` sayfasını açın
-3. Üstteki kutuya **kalıcı adresi** yazın — `https://<siteniz>/menu`
-4. **PNG olarak indir** (baskı için 720px)
-5. Yazdırmadan önce telefondan okutup menünün geldiğini doğrulayın
+1. `https://<bu-site>/qr.html` sayfasını açın
+2. Kutuya **yönlendirici projesinin** adresini yazın (`https://yonlendirme.vercel.app`)
+3. **PNG olarak indir** (baskı için 720px)
+4. Yazdırmadan önce telefondan okutup menünün geldiğini doğrulayın
 
-> **Önemli:** QR'ı yalnızca kalıcı adresiniz belli olduktan sonra bastırın.
-> Kendi domaininizi alacaksanız önce onu bağlayın, QR'a o adresi yazın.
-> `*.vercel.app` adresine bastırırsanız o adres sonsuza kadar ayakta kalmalıdır.
+> Sayfa, kutuya yanlışlıkla bu sitenin kendi adresini yazarsanız uyarır.
 
 ## Yayına Alma (Vercel)
 
-Repo Vercel'e bağlandığında build adımı gerekmez — statik klasör olduğu gibi
-sunulur.
+Build adımı gerekmez — statik klasör olduğu gibi sunulur.
 
 1. Vercel → **Add New Project** → bu repoyu seçin
 2. Framework Preset: **Other**, Build Command boş, Output Directory boş
@@ -123,15 +102,13 @@ sunulur.
 
 `vercel.json` şunları ayarlar:
 
-- `/menu` adresini `go.html`'e bağlar (QR bu adresi gösterir)
-- `menu.json` ve `yonlendirme.json` önbelleğe alınmaz — fiyat değişikliği
-  anında yayına girer
+- `menu.json` önbelleğe alınmaz — fiyat değişikliği anında yayına girer
 - Görseller bir yıl önbelleğe alınır
 
 ### Kendi domaininizi bağlama
 
-Vercel → Project → Settings → Domains → domaini ekleyin. QR'da yazan adres
-`https://uzunhikaye.com/menu` olur ve bir daha hiç değişmez.
+Vercel → Project → Settings → Domains → domaini ekleyin. Sonra yönlendirici
+reposundaki hedefi yeni adrese çevirin. **Basılı QR'lara dokunulmaz.**
 
 
 ## Dosya Yapısı
@@ -139,14 +116,12 @@ Vercel → Project → Settings → Domains → domaini ekleyin. QR'da yazan adr
 ```
 Baslat.bat              Windows: sunucuyu başlat + tarayıcıda aç
 index.html              Menü sayfası
-go.html                 QR'ın gittiği yönlendirme sayfası (/menu)
 qr.html                 QR üretici (işletme içi, noindex)
-vercel.json             Yayın ayarları: /menu yolu, önbellek kuralları
+vercel.json             Yayın ayarları: önbellek kuralları
 css/style.css           Tek stil dosyası
 js/app.js               JSON okur, kategorileri render eder
 js/vendor/qrcode.min.js QR kütüphanesi (gömülü, CDN'e bağımlı değil)
 data/menu.json          Menü verisi
-data/yonlendirme.json   QR'ın hedefi
 assets/images/
   hero.webp             Masaüstü hero (54 KB)
   hero-sm.webp          Mobil hero (26 KB)

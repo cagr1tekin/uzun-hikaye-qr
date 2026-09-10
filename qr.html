@@ -25,14 +25,15 @@
     <h1>Uzun <span>Hikaye</span></h1>
 
     <p>
-      QR koda <strong>kalıcı adresi</strong> bastırın. Bu adres asla değişmez;
-      menü taşınırsa yalnızca <code>data/yonlendirme.json</code> güncellenir.
+      QR koda <strong>yönlendirici adresini</strong> bastırın — bu menü sitesinin
+      adresini değil. Yönlendirici ayrı bir projedir ve adresi asla değişmez;
+      menü taşınırsa yalnızca onun hedefi güncellenir.
     </p>
 
     <div class="qr-field">
-      <label for="qr-input">QR'a yazılacak adres</label>
+      <label for="qr-input">QR'a yazılacak yönlendirici adresi</label>
       <input id="qr-input" type="url" inputmode="url" spellcheck="false"
-             placeholder="https://uzunhikaye.com/menu" />
+             placeholder="https://yonlendirme.vercel.app" />
       <p class="qr-hint" id="qr-hint"></p>
     </div>
 
@@ -53,10 +54,11 @@
     const hint = document.getElementById("qr-hint")
     const canvas = document.getElementById("qr-canvas")
 
-    const yerelMi = ["localhost", "127.0.0.1", ""].includes(location.hostname)
-
-    // Varsayilan: bu sitenin /go.html adresi
-    const varsayilan = location.href.replace(/qr\.html.*$/, "go.html")
+    // Yonlendirici ayri bir Vercel projesi; adresi bu siteden turetilemez.
+    // Bir kez yazilinca tarayicida saklanir, her seferinde tekrar yazilmasin.
+    const ANAHTAR = "uzunhikaye-yonlendirici"
+    const varsayilan =
+      localStorage.getItem(ANAHTAR) || "https://yonlendirme.vercel.app"
     input.value = varsayilan
 
     function ciz(url) {
@@ -75,14 +77,23 @@
         canvas.style.width = "220px"
         canvas.style.height = "220px"
 
-        if (yerelMi) {
+        let host = ""
+        try { host = new URL(url).hostname } catch {}
+
+        if (["localhost", "127.0.0.1", ""].includes(host)) {
           hint.textContent =
-            "Bu adres yalnızca bu bilgisayarda çalışır. Siteyi yayına aldıktan " +
-            "sonra gerçek adresi buraya yazın, QR'ı öyle bastırın."
+            "Bu yerel bir adres, telefondan açılmaz. Yönlendirici projesinin " +
+            "gerçek adresini yazın."
+          hint.className = "qr-hint qr-hint-warn"
+        } else if (host === location.hostname) {
+          hint.textContent =
+            "Dikkat: bu menü sitesinin kendi adresi. QR'a yönlendirici projesinin " +
+            "adresini yazın, yoksa domain değiştiğinde QR'lar ölür."
           hint.className = "qr-hint qr-hint-warn"
         } else {
           hint.textContent = "Bu adres QR'a yazılacak."
           hint.className = "qr-hint"
+          localStorage.setItem(ANAHTAR, url)
         }
       })
     }
