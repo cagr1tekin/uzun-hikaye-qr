@@ -190,15 +190,20 @@ function initTabs() {
     indicator.classList.add("ready")
   }
 
-  function setActive(tab, { scrollTab = true } = {}) {
-    tabs.forEach((t) => {
-      const on = t === tab
-      t.classList.toggle("active", on)
-      t.setAttribute("aria-selected", String(on))
+  let aktifIndeks = -1
+
+  function setActive(idx, { sekmeyiKaydir = true } = {}) {
+    if (idx < 0 || idx >= tabs.length || idx === aktifIndeks) return
+    aktifIndeks = idx
+
+    tabs.forEach((t, i) => {
+      t.classList.toggle("active", i === idx)
+      t.setAttribute("aria-selected", String(i === idx))
     })
-    moveIndicator(tab)
-    if (scrollTab) {
-      tab.scrollIntoView({
+    moveIndicator(tabs[idx])
+
+    if (sekmeyiKaydir) {
+      tabs[idx].scrollIntoView({
         behavior: REDUCED_MOTION ? "auto" : "smooth",
         inline: "center",
         block: "nearest",
@@ -206,40 +211,109 @@ function initTabs() {
     }
   }
 
-  tabs.forEach((tab, i) => {
-    tab.addEventListener("click", () => {
-      setActive(tab)
-      document.getElementById(tab.dataset.target)?.scrollIntoView({
-        behavior: REDUCED_MOTION ? "auto" : "smooth",
-      })
+  /**
+   * Sekmeye tıklandığında yumuşak kaydırma başlar ve aradaki bölümler
+   * ekrandan geçer. Kaydırma bitene kadar okuma kilitlenmezse, tıklanan
+   * kategori yerine yolda geçilen bir sonraki kategori aktif kalıyordu.
+   */
+  let kilit = false
+  let kilitZaman
+
+  function kilitle() {
+    kilit = true
+    clearTimeout(kilitZaman)
+
+    const coz = () => {
+      kilit = false
+      clearTimeout(kilitZaman)
+      window.removeEventListener("scrollend", coz)
+      // Kaydırma bittikten sonra gerçekte nerede olduğumuzu bir kez doğrula
+      setActive(gorunenIndeks())
+    }
+
+    if ("onscrollend" in window && !REDUCED_MOTION) {
+      window.addEventListener("scrollend", coz, { once: true })
+      kilitZaman = setTimeout(coz, 1500) // scrollend gelmezse emniyet
+    } else {
+      kilitZaman = setTimeout(coz, REDUCED_MOTION ? 60 : 900)
+    }
+  }
+
+  function bolumeGit(idx) {
+    kilitle()
+    setActive(idx)
+    sections[idx]?.scrollIntoView({
+      behavior: REDUCED_MOTION ? "auto" : "smooth",
     })
+  }
+
+  tabs.forEach((tab, i) => {
+    tab.addEventListener("click", () => bolumeGit(i))
 
     // Klavye: sekmeler arasında ok tuşlarıyla gezinme
     tab.addEventListener("keydown", (e) => {
       const dir = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0
       if (!dir) return
       e.preventDefault()
-      const next = tabs[(i + dir + tabs.length) % tabs.length]
-      next.focus()
-      setActive(next)
-      document.getElementById(next.dataset.target)?.scrollIntoView({
-        behavior: REDUCED_MOTION ? "auto" : "smooth",
-      })
+      const next = (i + dir + tabs.length) % tabs.length
+      tabs[next].focus()
+      bolumeGit(next)
     })
   })
 
-  // Görünen bölüme göre aktif sekmeyi güncelle
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return
-        const idx = sections.indexOf(entry.target)
-        if (idx !== -1) setActive(tabs[idx])
+  /**
+   * Okunmakta olan bölüm: nav çizgisinin üstüne çıkmış son bölüm.
+   *
+   * Önceden IntersectionObserver "ekranın ortasında görünen bölüm" mantığıyla
+   * çalışıyordu. 3 ürünlük Sıcak İçecekler gibi kısa kategoriler o bandı
+   * dolduramadığı için bir sonraki kategori aktif işaretleniyordu.
+   */
+  /**
+   * Ölçüm çizgisi, bölümlerin scroll-margin-top değerinden türetilir.
+   *
+   * Bunu nav yüksekliğinden tahmin etmek hataya açık: scrollIntoView bölümü
+   * tam scroll-margin-top hizasına bırakır (nav + 12px). Çizgi nav+8'de
+   * olduğunda tıklanan bölüm çizginin 4px altında kalıyor, sayılmıyor ve bir
+   * önceki kategori aktif görünüyordu. +4 tolerans yuvarlamayı da soğurur.
+   */
+  let cizgiCache = null
+  const cizgiHesapla = () => {
+    cizgiCache = sections[0]
+      ? parseFloat(getComputedStyle(sections[0]).scrollMarginTop) + 4
+      : 0
+  }
+  cizgiHesapla()
+  document.fonts?.ready.then(cizgiHesapla)
+  window.addEventListener("resize", cizgiHesapla)
+
+  function gorunenIndeks() {
+    const cizgi = cizgiCache ?? 0
+
+    // Sayfa sonunda: son kategori kısa ise çizgiye hiç ulaşamaz
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+      return sections.length - 1
+    }
+
+    let idx = 0
+    sections.forEach((s, i) => {
+      if (s && s.getBoundingClientRect().top <= cizgi) idx = i
+    })
+    return idx
+  }
+
+  let ticking = false
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (kilit || ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        if (!kilit) setActive(gorunenIndeks())
+        ticking = false
       })
     },
-    { rootMargin: "-45% 0px -50% 0px" }
+    { passive: true }
   )
-  sections.forEach((s) => s && observer.observe(s))
 
   // Kenar solmaları: kaydırma imkânını göster
   function updateEdges() {
@@ -250,18 +324,19 @@ function initTabs() {
   tabsEl.addEventListener("scroll", updateEdges, { passive: true })
 
   requestAnimationFrame(() => {
-    moveIndicator(tabs[0])
+    setActive(gorunenIndeks(), { sekmeyiKaydir: false })
+    moveIndicator(tabs[aktifIndeks] || tabs[0])
     updateEdges()
   })
 
   // Yazı tipi yüklenince sekme genişlikleri değişir
   document.fonts?.ready.then(() => {
-    moveIndicator(tabs.find((t) => t.classList.contains("active")) || tabs[0])
+    moveIndicator(tabs[aktifIndeks] || tabs[0])
     updateEdges()
   })
 
   window.addEventListener("resize", () => {
-    moveIndicator(tabs.find((t) => t.classList.contains("active")))
+    moveIndicator(tabs[aktifIndeks])
     updateEdges()
   })
 }
