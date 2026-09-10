@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="description" content="Uzun Hikaye Okey Salonu — çay, kahve, soğuk içecek ve tatlı menüsü." />
+  <title>Uzun Hikaye — Menü</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Hero görselini erken çek: LCP. Telefonda küçük dosya insin. -->
+  <link rel="preload" as="image" href="assets/images/hero-sm.webp" type="image/webp"
+        media="(max-width: 600px)" />
+  <link rel="preload" as="image" href="assets/images/hero.webp" type="image/webp"
+        media="(min-width: 601px)" />
+  <link rel="preload" as="fetch" href="data/menu.json" crossorigin />
+</head>
+<body>
+
+  <div class="loader" id="loader">
+    <div class="loader-inner">
+      <span class="loader-dot"></span>
+      <span class="loader-text">Uzun Hikaye</span>
+    </div>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="glow" aria-hidden="true"></div>
+
+  <!-- Header + sekmeler tek sticky blok: tek backdrop-filter katmanı -->
+  <div class="nav" id="nav">
+    <header class="header">
+      <div class="header-brand">
+        <span class="header-dot" aria-hidden="true"></span>
+        <span class="header-name" id="salon-name">Uzun Hikaye</span>
+      </div>
+      <span class="header-label" id="salon-tag">Menü</span>
+    </header>
+
+    <nav class="tabs-track" id="tabs-track" aria-label="Menü kategorileri">
+      <div class="tabs" id="tabs" role="tablist">
+        <span class="tabs-indicator" id="tabs-indicator" aria-hidden="true"></span>
+      </div>
+    </nav>
+  </div>
+
+  <section class="hero" id="hero">
+    <div class="hero-bg-wrap">
+      <div class="hero-bg" id="hero-bg"></div>
+    </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow anim-fade-up" style="--d:0.05s">İçecek Menüsü</p>
+      <h1 class="hero-title anim-fade-up" id="hero-title" style="--d:0.15s">
+        Ne içmek <em>istersiniz?</em>
+      </h1>
+      <div class="hero-rule anim-fade-up" style="--d:0.25s" aria-hidden="true"></div>
+      <p class="hero-sub anim-fade-up" id="hero-sub" style="--d:0.32s">
+        Siparişinizi söyleyin, masanıza getirelim.
+      </p>
+    </div>
+  </section>
+
+  <main class="menu" id="menu">
+    <div class="state">
+      <span class="state-spinner" aria-hidden="true"></span>
+      Menü yükleniyor…
+    </div>
+  </main>
+
+  <noscript>
+    <p class="noscript">
+      Menüyü görmek için tarayıcınızda JavaScript'in açık olması gerekiyor.
+    </p>
+  </noscript>
+
+  <footer class="footer">
+    <div class="footer-line" aria-hidden="true"></div>
+    <p id="footer-kdv">Fiyatlarımıza KDV dahildir.</p>
+    <p id="footer-date"></p>
+    <p class="footer-brand">Uzun Hikaye · Okey Salonu</p>
+  </footer>
+
+  <button class="to-top" id="to-top" type="button" aria-label="Menünün başına dön">
+    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M8 13V3M4 7l4-4 4 4" stroke="currentColor" stroke-width="1.6"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

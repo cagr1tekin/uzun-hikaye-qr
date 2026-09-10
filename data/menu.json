@@ -1,0 +1,318 @@
+{
+  "salon": {
+    "ad": "Uzun Hikaye",
+    "etiket": "Okey Salonu",
+    "baslik": "Ne içmek istersiniz?",
+    "altBaslik": "Siparişinizi söyleyin, masanıza getirelim.",
+    "heroGorsel": "assets/images/hero.webp",
+    "fiyatTarihi": "01.09.2026",
+    "kdvNotu": "Fiyatlarımıza KDV dahildir.",
+    "heroGorselMobil": "assets/images/hero-sm.webp"
+  },
+  "menu": [
+    {
+      "kategoriGosterim": "Çaylar",
+      "kisaAd": "Çay",
+      "urunler": [
+        {
+          "urun": "Çay",
+          "fiyat": 20
+        },
+        {
+          "urun": "Büyük Çay",
+          "fiyat": 35
+        },
+        {
+          "urun": "Oralet",
+          "fiyat": 25
+        },
+        {
+          "urun": "Karadut",
+          "fiyat": 25
+        },
+        {
+          "urun": "Kuşburnu",
+          "fiyat": 25
+        },
+        {
+          "urun": "Limon",
+          "fiyat": 25
+        },
+        {
+          "urun": "Kivi",
+          "fiyat": 25
+        },
+        {
+          "urun": "Çilek",
+          "fiyat": 25
+        },
+        {
+          "urun": "Elma",
+          "fiyat": 25
+        },
+        {
+          "urun": "Vişne",
+          "fiyat": 25
+        },
+        {
+          "urun": "Nane - Limon",
+          "fiyat": 25
+        },
+        {
+          "urun": "Şeftali",
+          "fiyat": 25
+        },
+        {
+          "urun": "Tarçın",
+          "fiyat": 25
+        },
+        {
+          "urun": "Kekik",
+          "fiyat": 25
+        },
+        {
+          "urun": "Kakao",
+          "fiyat": 30
+        },
+        {
+          "urun": "Muz",
+          "fiyat": 30
+        },
+        {
+          "urun": "Ballı Bitki Çayı",
+          "fiyat": 85
+        }
+      ]
+    },
+    {
+      "kategoriGosterim": "Türk Kahveleri",
+      "kisaAd": "Türk Kahvesi",
+      "urunler": [
+        {
+          "urun": "Türk Kahvesi",
+          "fiyat": 60
+        },
+        {
+          "urun": "Dibek Kahvesi",
+          "fiyat": 75
+        },
+        {
+          "urun": "Menengiç Kahvesi",
+          "fiyat": 75
+        },
+        {
+          "urun": "Osmanlı Kahvesi",
+          "fiyat": 75
+        }
+      ]
+    },
+    {
+      "kategoriGosterim": "Sıcak Kahveler",
+      "kisaAd": "Sıcak Kahve",
+      "urunler": [
+        {
+          "urun": "Nescafe",
+          "fiyat": 50
+        },
+        {
+          "urun": "Sütlü Nescafe",
+          "fiyat": 85
+        },
+        {
+          "urun": "Espresso",
+          "fiyat": 85
+        },
+        {
+          "urun": "Double Espresso",
+          "fiyat": 110
+        },
+        {
+          "urun": "Americano",
+          "fiyat": 110
+        },
+        {
+          "urun": "Filtre Kahve",
+          "fiyat": 90
+        },
+        {
+          "urun": "Flat White",
+          "fiyat": 120
+        },
+        {
+          "urun": "Cappuccino",
+          "fiyat": 130
+        },
+        {
+          "urun": "Latte",
+          "fiyat": 130
+        },
+        {
+          "urun": "Latte Macchiato",
+          "fiyat": 135
+        },
+        {
+          "urun": "Mocha",
+          "fiyat": 140
+        },
+        {
+          "urun": "Caramel Macchiato",
+          "fiyat": 145
+        },
+        {
+          "urun": "White Mocha",
+          "fiyat": 145
+        }
+      ]
+    },
+    {
+      "kategoriGosterim": "Soğuk Kahveler",
+      "kisaAd": "Soğuk Kahve",
+      "urunler": [
+        {
+          "urun": "Iced Filtre",
+          "fiyat": 100
+        },
+        {
+          "urun": "Iced Americano",
+          "fiyat": 125
+        },
+        {
+          "urun": "Iced Latte",
+          "fiyat": 140
+        },
+        {
+          "urun": "Iced Mocha",
+          "fiyat": 150
+        },
+        {
+          "urun": "Iced White Mocha",
+          "fiyat": 150
+        },
+        {
+          "urun": "Iced Macchiato",
+          "fiyat": 150
+        }
+      ]
+    },
+    {
+      "kategoriGosterim": "Sıcak İçecekler",
+      "kisaAd": "Sıcak İçecek",
+      "urunler": [
+        {
+          "urun": "Sıcak Süt",
+          "fiyat": 75
+        },
+        {
+          "urun": "Sütlü Salep",
+          "fiyat": 100
+        },
+        {
+          "urun": "Sütlü Sıcak Çikolata",
+          "fiyat": 100
+        }
+      ]
+    },
+    {
+      "kategoriGosterim": "Frozen & Milkshake",
+      "kisaAd": "Frozen",
+      "urunler": [
+        {
+          "urun": "Frozen (Çilek)",
+          "fiyat": 140
+        },
+        {
+          "urun": "Frozen (Mango)",
+          "fiyat": 140
+        },
+        {
+          "urun": "Frozen (Orman Meyveli)",
+          "fiyat": 140
+        },
+        {
+          "urun": "Milkshake (Karamel)",
+          "fiyat": 150
+        },
+        {
+          "urun": "Milkshake (Çikolatalı)",
+          "fiyat": 150
+        },
+        {
+          "urun": "Milkshake (Vanilya)",
+          "fiyat": 150
+        }
+      ]
+    },
+    {
+      "kategoriGosterim": "Soğuk İçecekler",
+      "kisaAd": "Soğuk İçecek",
+      "urunler": [
+        {
+          "urun": "Su",
+          "fiyat": 15
+        },
+        {
+          "urun": "Sade Soda",
+          "fiyat": 25
+        },
+        {
+          "urun": "Meyveli Sodalar",
+          "fiyat": 35
+        },
+        {
+          "urun": "Şişe Kola",
+          "fiyat": 45
+        },
+        {
+          "urun": "Kutu İçecekler",
+          "fiyat": 60
+        },
+        {
+          "urun": "Limonata",
+          "fiyat": 75
+        },
+        {
+          "urun": "Churchill",
+          "fiyat": 80
+        },
+        {
+          "urun": "Redbull",
+          "fiyat": 100
+        }
+      ]
+    },
+    {
+      "kategoriGosterim": "Tatlı & Çerez",
+      "kisaAd": "Tatlı",
+      "urunler": [
+        {
+          "urun": "Çekirdek (125 gr)",
+          "fiyat": 75
+        },
+        {
+          "urun": "Frambuazlı Cheesecake",
+          "fiyat": 145
+        },
+        {
+          "urun": "Limonlu Cheesecake",
+          "fiyat": 145
+        },
+        {
+          "urun": "Tiramisu Cup",
+          "fiyat": 160
+        },
+        {
+          "urun": "Devils",
+          "fiyat": 180
+        },
+        {
+          "urun": "Bitter Profiterollü Mono",
+          "fiyat": 190
+        },
+        {
+          "urun": "Fıstık Rüyası",
+          "fiyat": 195
+        }
+      ]
+    }
+  ]
+}

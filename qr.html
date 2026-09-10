@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Uzun Hikaye — QR Kod</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <!--
+    Kütüphane projeye gömülü. Daha önce jsdelivr'daki bir adres kullanılıyordu,
+    o adres 404 döndüğü için QR hiç oluşmuyordu. Yerel dosya hem bu riski
+    kaldırır hem de internet olmadan çalışır.
+  -->
+  <script src="js/vendor/qrcode.min.js"></script>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="glow" aria-hidden="true"></div>
+
+  <main class="qr-page">
+    <h1>Uzun <span>Hikaye</span></h1>
+
+    <p>
+      QR koda <strong>kalıcı adresi</strong> bastırın. Bu adres asla değişmez;
+      menü taşınırsa yalnızca <code>data/yonlendirme.json</code> güncellenir.
+    </p>
+
+    <div class="qr-field">
+      <label for="qr-input">QR'a yazılacak adres</label>
+      <input id="qr-input" type="url" inputmode="url" spellcheck="false"
+             placeholder="https://uzunhikaye.com/menu" />
+      <p class="qr-hint" id="qr-hint"></p>
+    </div>
+
+    <div class="qr-box">
+      <canvas id="qr-canvas" aria-label="Menü QR kodu" role="img"></canvas>
+    </div>
+
+    <button class="qr-download" id="qr-download" type="button">PNG olarak indir</button>
+
+    <p class="qr-warn">
+      Basmadan önce adresi telefondan açıp menünün geldiğini doğrulayın.
+      Yazdırılan QR'ı sonradan değiştirmek masaları tek tek dolaşmak demektir.
+    </p>
+  </main>
+
+  <script>
+    const input = document.getElementById("qr-input")
+    const hint = document.getElementById("qr-hint")
+    const canvas = document.getElementById("qr-canvas")
+
+    const yerelMi = ["localhost", "127.0.0.1", ""].includes(location.hostname)
+
+    // Varsayilan: bu sitenin /go.html adresi
+    const varsayilan = location.href.replace(/qr\.html.*$/, "go.html")
+    input.value = varsayilan
+
+    function ciz(url) {
+      // Baski icin yuksek cozunurluk: 220px'lik QR yazdirildiginda bulaniklasiyor
+      QRCode.toCanvas(canvas, url, {
+        width: 720,
+        margin: 2,
+        errorCorrectionLevel: "H",
+        color: { dark: "#0a0a0a", light: "#ffffff" },
+      }, (err) => {
+        if (err) {
+          hint.textContent = "QR oluşturulamadı: " + err.message
+          hint.className = "qr-hint qr-hint-warn"
+          return
+        }
+        canvas.style.width = "220px"
+        canvas.style.height = "220px"
+
+        if (yerelMi) {
+          hint.textContent =
+            "Bu adres yalnızca bu bilgisayarda çalışır. Siteyi yayına aldıktan " +
+            "sonra gerçek adresi buraya yazın, QR'ı öyle bastırın."
+          hint.className = "qr-hint qr-hint-warn"
+        } else {
+          hint.textContent = "Bu adres QR'a yazılacak."
+          hint.className = "qr-hint"
+        }
+      })
+    }
+
+    let zaman
+    input.addEventListener("input", () => {
+      clearTimeout(zaman)
+      zaman = setTimeout(() => ciz(input.value.trim() || varsayilan), 300)
+    })
+
+    document.getElementById("qr-download").addEventListener("click", () => {
+      const a = document.createElement("a")
+      a.href = canvas.toDataURL("image/png")
+      a.download = "uzun-hikaye-menu-qr.png"
+      a.click()
+    })
+
+    ciz(varsayilan)
+  </script>
+</body>
+</html>
