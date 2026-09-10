@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+
   <!--
     Kütüphane projeye gömülü. Daha önce jsdelivr'daki bir adres kullanılıyordu,
     o adres 404 döndüğü için QR hiç oluşmuyordu. Yerel dosya hem bu riski
@@ -24,84 +25,53 @@
   <main class="qr-page">
     <h1>Uzun <span>Hikaye</span></h1>
 
-    <p>
-      QR koda <strong>yönlendirici adresini</strong> bastırın — bu menü sitesinin
-      adresini değil. Yönlendirici ayrı bir projedir ve adresi asla değişmez;
-      menü taşınırsa yalnızca onun hedefi güncellenir.
-    </p>
-
-    <div class="qr-field">
-      <label for="qr-input">QR'a yazılacak yönlendirici adresi</label>
-      <input id="qr-input" type="url" inputmode="url" spellcheck="false"
-             placeholder="https://yonlendirme.vercel.app" />
-      <p class="qr-hint" id="qr-hint"></p>
-    </div>
+    <p>Masalara yapıştırılacak QR kod. Müşteri okutunca menü telefonunda açılır.</p>
 
     <div class="qr-box">
-      <canvas id="qr-canvas" aria-label="Menü QR kodu" role="img"></canvas>
+      <canvas id="qr-canvas" aria-label="Uzun Hikaye menü QR kodu" role="img"></canvas>
     </div>
+
+    <p class="qr-url" id="qr-url"></p>
 
     <button class="qr-download" id="qr-download" type="button">PNG olarak indir</button>
 
     <p class="qr-warn">
-      Basmadan önce adresi telefondan açıp menünün geldiğini doğrulayın.
-      Yazdırılan QR'ı sonradan değiştirmek masaları tek tek dolaşmak demektir.
+      Bu adres kalıcıdır, hiçbir zaman değişmez. Menü başka bir adrese taşınırsa
+      yönlendirici projesinin hedefi güncellenir — bu QR aynı kalır.
     </p>
   </main>
 
   <script>
-    const input = document.getElementById("qr-input")
-    const hint = document.getElementById("qr-hint")
+    /**
+     * QR'a yazılan adres. BU SATIRI DEĞİŞTİRMEYİN.
+     *
+     * Burası menü sitesinin adresi değil, yönlendirici projesinin adresidir:
+     * https://github.com/cagr1tekin/uzun-hikaye-yonlendirme
+     *
+     * QR bir kez basılıp masalara yapıştırıldıktan sonra bu adresi değiştirmek,
+     * bütün masaları tek tek dolaşmak demektir. Menü taşınacaksa yönlendirici
+     * projesindeki vercel.json güncellenir, burası sabit kalır.
+     */
+    const QR_ADRES = "https://uzun-hikaye-yonlendirme.vercel.app/"
+
     const canvas = document.getElementById("qr-canvas")
+    document.getElementById("qr-url").textContent = QR_ADRES
 
-    // Yonlendirici ayri bir Vercel projesi; adresi bu siteden turetilemez.
-    // Bir kez yazilinca tarayicida saklanir, her seferinde tekrar yazilmasin.
-    const ANAHTAR = "uzunhikaye-yonlendirici"
-    const varsayilan =
-      localStorage.getItem(ANAHTAR) || "https://yonlendirme.vercel.app"
-    input.value = varsayilan
-
-    function ciz(url) {
-      // Baski icin yuksek cozunurluk: 220px'lik QR yazdirildiginda bulaniklasiyor
-      QRCode.toCanvas(canvas, url, {
-        width: 720,
-        margin: 2,
-        errorCorrectionLevel: "H",
-        color: { dark: "#0a0a0a", light: "#ffffff" },
-      }, (err) => {
-        if (err) {
-          hint.textContent = "QR oluşturulamadı: " + err.message
-          hint.className = "qr-hint qr-hint-warn"
-          return
-        }
-        canvas.style.width = "220px"
-        canvas.style.height = "220px"
-
-        let host = ""
-        try { host = new URL(url).hostname } catch {}
-
-        if (["localhost", "127.0.0.1", ""].includes(host)) {
-          hint.textContent =
-            "Bu yerel bir adres, telefondan açılmaz. Yönlendirici projesinin " +
-            "gerçek adresini yazın."
-          hint.className = "qr-hint qr-hint-warn"
-        } else if (host === location.hostname) {
-          hint.textContent =
-            "Dikkat: bu menü sitesinin kendi adresi. QR'a yönlendirici projesinin " +
-            "adresini yazın, yoksa domain değiştiğinde QR'lar ölür."
-          hint.className = "qr-hint qr-hint-warn"
-        } else {
-          hint.textContent = "Bu adres QR'a yazılacak."
-          hint.className = "qr-hint"
-          localStorage.setItem(ANAHTAR, url)
-        }
-      })
-    }
-
-    let zaman
-    input.addEventListener("input", () => {
-      clearTimeout(zaman)
-      zaman = setTimeout(() => ciz(input.value.trim() || varsayilan), 300)
+    // Baski icin yuksek cozunurluk: 220px'lik QR yazdirildiginda bulaniklasiyor.
+    // Ekranda 220px gosterilir, indirilen dosya 720px kalir.
+    QRCode.toCanvas(canvas, QR_ADRES, {
+      width: 720,
+      margin: 2,
+      errorCorrectionLevel: "H",
+      color: { dark: "#0a0a0a", light: "#ffffff" },
+    }, (err) => {
+      if (err) {
+        document.getElementById("qr-url").textContent =
+          "QR oluşturulamadı: " + err.message
+        return
+      }
+      canvas.style.width = "220px"
+      canvas.style.height = "220px"
     })
 
     document.getElementById("qr-download").addEventListener("click", () => {
@@ -110,8 +80,6 @@
       a.download = "uzun-hikaye-menu-qr.png"
       a.click()
     })
-
-    ciz(varsayilan)
   </script>
 </body>
 </html>

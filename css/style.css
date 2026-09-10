@@ -694,47 +694,13 @@ body.loaded .loader {
   color: var(--text-primary);
 }
 
-.qr-field {
-  width: 100%;
-  max-width: 380px;
-  text-align: left;
-}
-
-.qr-field label {
-  display: block;
-  margin-bottom: 0.4rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.qr-field input {
-  width: 100%;
-  min-height: 44px;
-  padding: 0 0.9rem;
-  border: 1px solid var(--border-subtle);
-  border-radius: 10px;
-  background: var(--bg-card);
-  color: var(--text-primary);
-  font-family: inherit;
-  font-size: 1rem; /* 16px: iOS'ta odaklanınca sayfayı yakınlaştırmasın */
-  transition: border-color 0.2s;
-}
-
-.qr-field input:focus {
-  border-color: var(--accent);
-}
-
-.qr-hint {
-  margin-top: 0.45rem;
-  font-size: 0.8rem !important;
-  color: var(--text-muted);
+.qr-url {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  /* Sadece sigmazsa kir; ortadan bolunmus adres okunmuyor */
+  overflow-wrap: anywhere;
   max-width: none !important;
-}
-
-.qr-hint-warn {
-  color: var(--accent-strong);
+  font-family: ui-monospace, monospace;
 }
 
 .qr-warn {

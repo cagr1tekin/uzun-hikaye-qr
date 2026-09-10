@@ -69,7 +69,7 @@ QR kod **bu siteye doğrudan gitmez.** Ayrı bir Vercel projesi olan
 yönlendiriciye gider, o da buraya yönlendirir:
 
 ```
-QR kod  →  yonlendirme.vercel.app  →  bu menü sitesi
+QR kod  →  uzun-hikaye-yonlendirme.vercel.app  →  bu menü sitesi
            (ayrı proje, asla değişmez)   (taşınabilir)
 ```
 
@@ -85,12 +85,19 @@ reposundaki `vercel.json` güncellenir.
 
 ### QR kodu üretme
 
-1. `https://<bu-site>/qr.html` sayfasını açın
-2. Kutuya **yönlendirici projesinin** adresini yazın (`https://yonlendirme.vercel.app`)
-3. **PNG olarak indir** (baskı için 720px)
-4. Yazdırmadan önce telefondan okutup menünün geldiğini doğrulayın
+QR kod sabittir, ayar gerektirmez. `https://<bu-site>/qr` sayfasını açın,
+**PNG olarak indir** deyin (baskı için 720px). Bastırmadan önce telefondan
+okutup menünün geldiğini doğrulayın.
 
-> Sayfa, kutuya yanlışlıkla bu sitenin kendi adresini yazarsanız uyarır.
+QR'a yazılı adres:
+
+```
+https://uzun-hikaye-yonlendirme.vercel.app/
+```
+
+Bu adres `qr.html` içinde `QR_ADRES` sabitinde durur ve **değiştirilmez.**
+Menü taşınacaksa yönlendirici projesindeki `vercel.json` güncellenir.
+
 
 ## Yayına Alma (Vercel)
 
