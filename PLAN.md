@@ -1,4 +1,4 @@
-# Uzun Hikaye — Okey Salonu QR Menü Planı
+# Uzun Hikaye — Kafe QR Menü Planı
 
 > Statik, DB'siz, tek işletmeli QR menü. Mevcut `qr-menu` SaaS reposundan tamamen bağımsız.
 
@@ -6,7 +6,7 @@
 
 ## 1. Amaç
 
-Okey salonu müşterileri masadaki QR kodu okutunca telefonda **sadece içecek/yiyecek menüsünü** görsün.
+Kafe müşterileri masadaki QR kodu okutunca telefonda **sadece içecek/yiyecek menüsünü** görsün.
 
 - Sipariş sistemi yok (garson/servis masadan alır)
 - Giriş / kayıt yok

@@ -1,7 +1,7 @@
 {
   "salon": {
     "ad": "Uzun Hikaye",
-    "etiket": "Okey Salonu",
+    "etiket": "Kafe",
     "baslik": "Ne içmek istersiniz?",
     "altBaslik": "Siparişinizi söyleyin, masanıza getirelim.",
     "heroGorsel": "assets/images/hero.webp",
@@ -247,36 +247,194 @@
       "kisaAd": "Soğuk İçecek",
       "urunler": [
         {
-          "urun": "Su",
-          "fiyat": 15
-        },
-        {
-          "urun": "Sade Soda",
-          "fiyat": 25
-        },
-        {
-          "urun": "Meyveli Sodalar",
-          "fiyat": 35
-        },
-        {
-          "urun": "Şişe Kola",
-          "fiyat": 45
-        },
-        {
-          "urun": "Kutu İçecekler",
-          "fiyat": 60
-        },
-        {
           "urun": "Limonata",
           "fiyat": 75
         },
         {
           "urun": "Churchill",
           "fiyat": 80
+        }
+      ]
+    },
+    {
+      "kategoriGosterim": "Gazlı İçecekler",
+      "kisaAd": "Gazlı İçecek",
+      "urunler": [
+        {
+          "urun": "Pepsi (Kutu)",
+          "fiyat": 45
         },
         {
-          "urun": "Redbull",
+          "urun": "Pepsi (Cam Şişe)",
+          "fiyat": 60
+        },
+        {
+          "urun": "Pepsi Max (Kutu)",
+          "fiyat": 45
+        },
+        {
+          "urun": "Yedigün (Kutu)",
+          "fiyat": 45
+        },
+        {
+          "urun": "7UP (Kutu)",
+          "fiyat": 45
+        },
+        {
+          "urun": "Niğde Gazozu (Cam Şişe)",
+          "fiyat": 45
+        }
+      ]
+    },
+    {
+      "kategoriGosterim": "Soğuk Çaylar",
+      "kisaAd": "Ice Tea",
+      "urunler": [
+        {
+          "urun": "Lipton Ice Tea Şeftali",
+          "fiyat": 60
+        },
+        {
+          "urun": "Lipton Ice Tea Limon",
+          "fiyat": 60
+        },
+        {
+          "urun": "Lipton Ice Tea Mango",
+          "fiyat": 60
+        },
+        {
+          "urun": "Fuse Tea Karpuz",
+          "fiyat": 60
+        },
+        {
+          "urun": "Fuse Tea Şeftali",
+          "fiyat": 60
+        },
+        {
+          "urun": "Fuse Tea Mango - Ananas",
+          "fiyat": 60
+        }
+      ]
+    },
+    {
+      "kategoriGosterim": "Meyve Suları",
+      "kisaAd": "Meyve Suyu",
+      "urunler": [
+        {
+          "urun": "Tropicana Şeftali",
+          "fiyat": 60
+        },
+        {
+          "urun": "Tropicana Vişne",
+          "fiyat": 60
+        },
+        {
+          "urun": "Tropicana Karışık",
+          "fiyat": 60
+        }
+      ]
+    },
+    {
+      "kategoriGosterim": "Enerji İçecekleri",
+      "kisaAd": "Enerji İçeceği",
+      "urunler": [
+        {
+          "urun": "Red Bull Klasik",
           "fiyat": 100
+        },
+        {
+          "urun": "Red Bull Red Edition (Karpuz)",
+          "fiyat": 100
+        },
+        {
+          "urun": "Red Bull Lilac Edition (Pomelo)",
+          "fiyat": 100
+        },
+        {
+          "urun": "Red Bull White Edition (Hindistan Cevizi & Açai)",
+          "fiyat": 100
+        },
+        {
+          "urun": "Red Bull Peach Edition (Şeftali)",
+          "fiyat": 100
+        }
+      ]
+    },
+    {
+      "kategoriGosterim": "Sade Maden Suları",
+      "kisaAd": "Sade Maden Suyu",
+      "urunler": [
+        {
+          "urun": "Kızılay Sade Maden Suyu",
+          "fiyat": 25
+        },
+        {
+          "urun": "Beypazarı Sade Maden Suyu",
+          "fiyat": 25
+        },
+        {
+          "urun": "İnişdibi Sade Soda",
+          "fiyat": 25
+        }
+      ]
+    },
+    {
+      "kategoriGosterim": "Aromalı Maden Suları",
+      "kisaAd": "Aromalı Maden Suyu",
+      "urunler": [
+        {
+          "urun": "Kızılay Portakal - Bisküvi - Elma",
+          "fiyat": 35
+        },
+        {
+          "urun": "Kızılay Şeftali - Mango",
+          "fiyat": 35
+        },
+        {
+          "urun": "Kızılay Mandalina",
+          "fiyat": 35
+        },
+        {
+          "urun": "Kızılay Mango - Ananas",
+          "fiyat": 35
+        },
+        {
+          "urun": "Kızılay Limon",
+          "fiyat": 35
+        },
+        {
+          "urun": "Kızılay Karpuz - Çilek",
+          "fiyat": 35
+        },
+        {
+          "urun": "Kızılay Elma",
+          "fiyat": 35
+        },
+        {
+          "urun": "Kızılay Nar",
+          "fiyat": 35
+        },
+        {
+          "urun": "Kızılay Guava",
+          "fiyat": 35
+        },
+        {
+          "urun": "Kızılay Misket Limonu - Nane",
+          "fiyat": 35
+        },
+        {
+          "urun": "Kızılay Vişne - Bitter Çikolata",
+          "fiyat": 35
+        }
+      ]
+    },
+    {
+      "kategoriGosterim": "Su",
+      "kisaAd": "Su",
+      "urunler": [
+        {
+          "urun": "Badempınarı Su",
+          "fiyat": 15
         }
       ]
     },

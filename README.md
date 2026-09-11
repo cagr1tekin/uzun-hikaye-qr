@@ -1,6 +1,6 @@
 # Uzun Hikaye — QR Menü
 
-Okey salonu için statik, veritabanısız QR menü. Detaylı plan: [PLAN.md](./PLAN.md)
+Kafe için statik, veritabanısız QR menü. Detaylı plan: [PLAN.md](./PLAN.md)
 
 **8 kategori · 64 ürün** — kaynak: 01.09.2026 tarihli fiziksel menü panosu.
 
@@ -36,7 +36,7 @@ kategoriler, sekmeler ve ürün sayaçları bu dosyadan otomatik üretilir.
 {
   "salon": {
     "ad": "Uzun Hikaye",
-    "etiket": "Okey Salonu",
+    "etiket": "Kafe",
     "baslik": "Ne içmek istersiniz?",
     "altBaslik": "Siparişinizi söyleyin, masanıza getirelim.",
     "heroGorsel": "assets/images/hero.webp",
